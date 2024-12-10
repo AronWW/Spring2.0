@@ -15,8 +15,11 @@ public class Author {
     @Column(nullable = false)
     private String name;
 
-    @Column
+    @Column(length = 2000)
     private String biography;
+
+    @Column(name = "image_url")
+    private String imageUrl;
 
     @OneToMany(mappedBy = "author")
     private List<Comic> comics;

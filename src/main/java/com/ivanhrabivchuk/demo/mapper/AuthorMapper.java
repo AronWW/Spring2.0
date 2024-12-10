@@ -11,6 +11,7 @@ public class AuthorMapper {
         dto.setId(author.getId());
         dto.setName(author.getName());
         dto.setBiography(author.getBiography());
+        dto.setImageUrl(author.getImageUrl());
         return dto;
     }
 
@@ -19,6 +20,7 @@ public class AuthorMapper {
         author.setId(dto.getId());
         author.setName(dto.getName());
         author.setBiography(dto.getBiography());
+        author.setImageUrl(dto.getImageUrl());
         return author;
     }
 }

@@ -8,6 +8,7 @@ import com.ivanhrabivchuk.demo.repository.RatingRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -39,13 +40,9 @@ public class RatingService {
         Rating existingRating = ratingRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Rating not found"));
 
-        existingRating.setScore(ratingDTO.getScore());
-        if (ratingDTO.getScore() != null) {
-            existingRating.setScore(ratingDTO.getScore());
-        }
-        if (ratingDTO.getReview() != null) {
-            existingRating.setReview(ratingDTO.getReview());
-        }
+        Optional.ofNullable(ratingDTO.getScore()).ifPresent(existingRating::setScore);
+        Optional.ofNullable(ratingDTO.getReview()).ifPresent(existingRating::setReview);
+        Optional.ofNullable(ratingDTO.getRatingDate()).ifPresent(existingRating::setRatingDate);
 
         Rating updatedRating = ratingRepository.save(existingRating);
         return ratingMapper.toDto(updatedRating);

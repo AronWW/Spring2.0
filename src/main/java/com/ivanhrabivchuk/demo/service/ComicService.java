@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -73,10 +74,12 @@ public class ComicService {
         Comic existingComic = comicRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Comic not found"));
 
-        existingComic.setTitle(comicDTO.getTitle());
-        existingComic.setDescription(comicDTO.getDescription());
-        existingComic.setPublicationDate(comicDTO.getPublicationDate());
-        existingComic.setGenre(comicDTO.getGenre());
+        Optional.ofNullable(comicDTO.getTitle()).ifPresent(existingComic::setTitle);
+        Optional.ofNullable(comicDTO.getDescription()).ifPresent(existingComic::setDescription);
+        Optional.ofNullable(comicDTO.getPublicationDate()).ifPresent(existingComic::setPublicationDate);
+        Optional.ofNullable(comicDTO.getGenre()).ifPresent(existingComic::setGenre);
+        Optional.ofNullable(comicDTO.getCoverImageUrl()).ifPresent(existingComic::setCoverImageUrl);
+        Optional.ofNullable(comicDTO.getIsCompleted()).ifPresent(existingComic::setIsCompleted);
 
         Comic updatedComic = comicRepository.save(existingComic);
         return comicMapper.toDto(updatedComic);

@@ -7,4 +7,5 @@ public class AuthorDTO {
     private Long id;
     private String name;
     private String biography;
+    private String imageUrl;
 }

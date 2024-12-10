@@ -3,6 +3,7 @@ package com.ivanhrabivchuk.demo.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -24,6 +25,12 @@ public class Comic {
 
     @Column(name = "genre")
     private String genre;
+
+    @Column(name = "cover_image_url")
+    private String coverImageUrl;
+
+    @Column(name = "is_completed")
+    private Boolean isCompleted;
 
     @ManyToOne
     @JoinColumn(name = "author_id")

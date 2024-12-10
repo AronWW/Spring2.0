@@ -3,6 +3,9 @@ package com.ivanhrabivchuk.demo.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Data
 @Entity
 @Table(name = "ratings")
@@ -14,6 +17,8 @@ public class Rating {
     @Column(nullable = false)
     private Integer score;
 
+    @Column(name = "rating_date")
+    private LocalDateTime ratingDate;
 
     @Column(length = 1000)
     private String review;

@@ -11,4 +11,5 @@ public interface ComicRepository extends JpaRepository<Comic, Long> {
     List<Comic> findByAuthorId(Long authorId);
     List<Comic> findByGenre(String genre);
     Long countByAuthorId(Long authorId);
+
 }

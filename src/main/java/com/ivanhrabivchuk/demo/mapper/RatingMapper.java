@@ -17,6 +17,7 @@ public class RatingMapper {
         dto.setId(rating.getId());
         dto.setScore(rating.getScore());
         dto.setReview(rating.getReview());
+        dto.setRatingDate(rating.getRatingDate());
         dto.setComicId(rating.getComic() != null ? rating.getComic().getId() : null);
         return dto;
     }
@@ -26,6 +27,7 @@ public class RatingMapper {
         rating.setId(dto.getId());
         rating.setScore(dto.getScore());
         rating.setReview(dto.getReview());
+        rating.setRatingDate(dto.getRatingDate());
         rating.setComic(dto.getComicId() != null ?
                 comicRepository.findById(dto.getComicId()).orElse(null) : null);
         return rating;

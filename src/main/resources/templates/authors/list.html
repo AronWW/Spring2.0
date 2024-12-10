@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: headFragment ('Author List')"></head>
+<body>
+<header th:insert="fragments/navbar :: navbar"></header>
+
+<div class="container mt-5">
+  <h1>Authors</h1>
+  <a th:href="@{/web/authors/create}" class="btn btn-primary">Додати автора</a>
+  <table class="table">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Ім'я</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="author : ${authors}">
+      <td th:text="${author.id}"></td>
+      <td th:text="${author.name}"></td>
+      <td>
+        <a th:href="@{/web/authors/{id}(id=${author.id})}">Details</a> |
+        <a th:href="@{/web/authors/{id}/edit(id=${author.id})}">Edit</a> |
+        <a th:href="@{/web/authors/{id}/delete(id=${author.id})}">Delete</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+<footer th:insert="fragments/footer :: footer"></footer>
+</html>

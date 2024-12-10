@@ -11,6 +11,7 @@ import com.ivanhrabivchuk.demo.repository.RatingRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -43,12 +44,10 @@ public class AuthorService {
         Author existingAuthor = authorRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Author not found"));
 
-        if (authorDTO.getName() != null) {
-            existingAuthor.setName(authorDTO.getName());
-        }
-        if (authorDTO.getBiography() != null) {
-            existingAuthor.setBiography(authorDTO.getBiography());
-        }
+        Optional.ofNullable(authorDTO.getName()).ifPresent(existingAuthor::setName);
+        Optional.ofNullable(authorDTO.getBiography()).ifPresent(existingAuthor::setBiography);
+        Optional.ofNullable(authorDTO.getImageUrl()).ifPresent(existingAuthor::setImageUrl);
+
         Author updatedAuthor = authorRepository.save(existingAuthor);
         return authorMapper.toDto(updatedAuthor);
     }
@@ -62,11 +61,6 @@ public class AuthorService {
     }
 
     public Double getAverageRatingForAuthor(Long authorId) {
-        List<Comic> authorComics = comicRepository.findByAuthorId(authorId);
-        return authorComics.stream()
-                .mapToDouble(comic ->
-                        ratingRepository.findAverageScoreByComicId(comic.getId()))
-                .average()
-                .orElse(0.0);
+        return ratingRepository.findAverageRatingByAuthorId(authorId);
     }
 }

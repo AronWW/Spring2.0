@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: headFragment ('Rating List')"></head>
+<header th:insert="fragments/navbar :: navbar"></header>
+<body>
+
+<div class="container mt-5">
+    <h1>Всі рев'ю</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Комікс</th>
+            <th>Оцінка</th>
+            <th>Рев'ю</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="rating : ${ratings}">
+            <td><a th:href="@{/web/comics/{id}(id=${rating.comicId})}" th:text="${rating.comic.title}"></a></td>
+            <td th:text="${rating.score}"></td>
+            <td th:text="${rating.review}"></td>
+            <td>
+                <a th:href="@{/web/ratings/{id}/edit(id=${rating.id})}">Змінити</a> |
+                <a th:href="@{/web/ratings/{id}/delete(id=${rating.id}, comicId=${rating.comicId})}">Видалити</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+<footer th:insert="fragments/footer :: footer"></footer>
+</html>

@@ -18,6 +18,8 @@ public class ComicMapper {
         dto.setDescription(comic.getDescription());
         dto.setPublicationDate(comic.getPublicationDate());
         dto.setGenre(comic.getGenre());
+        dto.setCoverImageUrl(comic.getCoverImageUrl());
+        dto.setIsCompleted(comic.getIsCompleted());
         dto.setAuthorId(comic.getAuthor() != null ? comic.getAuthor().getId() : null);
         dto.setAuthorName(comic.getAuthor() != null ? comic.getAuthor().getName() : null);
         return dto;
@@ -30,10 +32,12 @@ public class ComicMapper {
         comic.setDescription(dto.getDescription());
         comic.setPublicationDate(dto.getPublicationDate());
         comic.setGenre(dto.getGenre());
-        comic.setAuthor(dto.getAuthorId() != null ?
-                authorRepository.findById(dto.getAuthorId()).orElse(null) : null);
-        comic.setAuthor(dto.getAuthorName() !=null ?
-                authorRepository.findByName(dto.getAuthorName()) : null);
+        comic.setCoverImageUrl(dto.getCoverImageUrl());
+        comic.setIsCompleted(dto.getIsCompleted());
+        if (dto.getAuthorId() != null) {
+            comic.setAuthor(authorRepository.findById(dto.getAuthorId()).orElse(null));
+        }
+
         return comic;
     }
 }
